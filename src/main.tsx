@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./main.css"
+import Canvas from "./components/Canvas";
+import "./main.css";
 
 function App(): JSX.Element {
-    return <h1>Hello world</h1>
+    return <Canvas />
 }
 
 ReactDOM.render(
     <App />,
-    document.getElementById("app-root"),
+    document.getElementById("root"),
 );
