@@ -6,7 +6,6 @@ function Static(props: { height: number; width: number }): JSX.Element {
     const cellDimension = Math.min(props.width, props.height) / cellCount / 2;
     const xOffset = props.width / 2 - (cellCount * cellDimension) / 2;
     const yOffset = props.height / 2 - (cellCount * cellDimension) / 2;
-
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     const canvasContextRef = React.useRef<CanvasRenderingContext2D | null>(
         null,
