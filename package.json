@@ -1,16 +1,12 @@
 {
     "name": "sketches-app",
     "version": "1.0.0",
-    "description": "",
     "scripts": {
         "dev": "webpack serve --port 3000",
         "build": "NODE_ENV=production webpack",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "prettier": "prettier --write \"src/**/*.{ts,tsx}\""
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "devDependencies": {
         "@types/react": "^17.0.38",
         "@types/react-dom": "^17.0.11",
