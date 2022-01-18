@@ -7,7 +7,7 @@ function Canvas(props: { height?: number, width?: number }): JSX.Element {
     React.useEffect(() => {
         if (canvasRef.current) {
             canvasContextRef.current = canvasRef.current.getContext("2d");
-            let context = canvasContextRef.current;
+            const context = canvasContextRef.current;
             context!.beginPath();
             context!.arc(95, 50, 40, 0, 2 * Math.PI);
             context!.stroke();
