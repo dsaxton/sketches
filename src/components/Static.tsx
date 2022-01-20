@@ -1,22 +1,17 @@
 import * as React from "react";
 
-function Static(): JSX.Element {
-    const [dimensions, setDimensions] = React.useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
+function Static(props: { width: number; height: number }): JSX.Element {
     const cellCount = 100;
     const delayTime = 50;
-    const cellDimension =
-        Math.min(dimensions.width, dimensions.height) / cellCount / 2;
-    const xOffset = dimensions.width / 2 - (cellCount * cellDimension) / 2;
-    const yOffset = dimensions.height / 2 - (cellCount * cellDimension) / 2;
+    const cellDimension = Math.min(props.width, props.height) / cellCount / 2;
+    const xOffset = props.width / 2 - (cellCount * cellDimension) / 2;
+    const yOffset = props.height / 2 - (cellCount * cellDimension) / 2;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
     React.useEffect(() => {
         if (canvasRef.current) {
             const context = canvasRef.current.getContext("2d")!;
-            context.fillRect(0, 0, dimensions.width, dimensions.height);
+            context.fillRect(0, 0, props.width, props.height);
 
             const id = setInterval(() => {
                 let cellColor;
@@ -38,21 +33,9 @@ function Static(): JSX.Element {
             }, delayTime);
             return () => clearInterval(id);
         }
-    }, [dimensions]);
+    }, [props]);
 
-    React.useLayoutEffect(() => {
-        function updateDimensions() {
-            setDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-        window.addEventListener("resize", updateDimensions);
-        updateDimensions();
-        return () => window.removeEventListener("resize", updateDimensions);
-    }, []);
-
-    return <canvas ref={canvasRef} {...dimensions} />;
+    return <canvas ref={canvasRef} {...props} />;
 }
 
 export default Static;

@@ -1,24 +1,20 @@
 import * as React from "react";
 
-function Lines(): JSX.Element {
+function Lines(props: { width: number; height: number }): JSX.Element {
     const delayTime = 250;
     const segmentCount = 750;
-    const [dimensions, setDimensions] = React.useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
-    const radius = Math.min(dimensions.width, dimensions.height) / 100;
+    const radius = Math.min(props.width, props.height) / 100;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
     React.useEffect(() => {
         if (canvasRef.current) {
             const context = canvasRef.current.getContext("2d")!;
-            context.fillRect(0, 0, dimensions.width, dimensions.height);
+            context.fillRect(0, 0, props.width, props.height);
             context.strokeStyle = "rgb(255, 255, 255)";
 
             const id = setInterval(() => {
-                let x = dimensions.width / 2;
-                let y = dimensions.height / 2;
+                let x = props.width / 2;
+                let y = props.height / 2;
                 let theta;
                 for (let i = 0; i < segmentCount; i++) {
                     context.moveTo(x, y);
@@ -31,21 +27,9 @@ function Lines(): JSX.Element {
             }, delayTime);
             return () => clearInterval(id);
         }
-    }, [dimensions]);
+    }, [props]);
 
-    React.useLayoutEffect(() => {
-        function updateDimensions() {
-            setDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-        window.addEventListener("resize", updateDimensions);
-        updateDimensions();
-        return () => window.removeEventListener("resize", updateDimensions);
-    }, []);
-
-    return <canvas ref={canvasRef} {...dimensions}></canvas>;
+    return <canvas ref={canvasRef} {...props}></canvas>;
 }
 
 export default Lines;
