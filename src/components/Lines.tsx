@@ -12,22 +12,22 @@ function Lines(): JSX.Element {
 
     React.useEffect(() => {
         if (canvasRef.current) {
-            const context = canvasRef.current.getContext("2d");
-            context!.fillRect(0, 0, dimensions.width, dimensions.height);
-            context!.strokeStyle = "rgb(255, 255, 255)";
+            const context = canvasRef.current.getContext("2d")!;
+            context.fillRect(0, 0, dimensions.width, dimensions.height);
+            context.strokeStyle = "rgb(255, 255, 255)";
 
             const id = setInterval(() => {
                 let x = dimensions.width / 2;
                 let y = dimensions.height / 2;
                 let theta;
                 for (let i = 0; i < segmentCount; i++) {
-                    context!.moveTo(x, y);
+                    context.moveTo(x, y);
                     theta = Math.random() * 2 * Math.PI;
                     x += radius * Math.cos(theta);
                     y += radius * Math.sin(theta);
-                    context!.lineTo(x, y);
+                    context.lineTo(x, y);
                 }
-                context!.stroke();
+                context.stroke();
             }, delayTime);
             return () => clearInterval(id);
         }

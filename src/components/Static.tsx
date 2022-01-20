@@ -15,8 +15,8 @@ function Static(): JSX.Element {
 
     React.useEffect(() => {
         if (canvasRef.current) {
-            const context = canvasRef.current.getContext("2d");
-            context!.fillRect(0, 0, dimensions.width, dimensions.height);
+            const context = canvasRef.current.getContext("2d")!;
+            context.fillRect(0, 0, dimensions.width, dimensions.height);
 
             const id = setInterval(() => {
                 let cellColor;
@@ -26,8 +26,8 @@ function Static(): JSX.Element {
                             Math.random() < 0.5
                                 ? "rgb(0, 0, 0)"
                                 : "rgb(255, 255, 255)";
-                        context!.fillStyle = cellColor;
-                        context!.fillRect(
+                        context.fillStyle = cellColor;
+                        context.fillRect(
                             xOffset + i * cellDimension,
                             yOffset + j * cellDimension,
                             cellDimension,
