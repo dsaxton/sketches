@@ -1,9 +1,13 @@
 import * as React from "react";
 
-function Lines(props: { height: number; width: number }): JSX.Element {
+function Lines(): JSX.Element {
     const delayTime = 250;
     const segmentCount = 750;
-    const radius = Math.min(props.width, props.height) / 100;
+    const [dimensions, setDimensions] = React.useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+    const radius = Math.min(dimensions.width, dimensions.height) / 100;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     const canvasContextRef = React.useRef<CanvasRenderingContext2D | null>(
         null,
@@ -13,12 +17,12 @@ function Lines(props: { height: number; width: number }): JSX.Element {
         if (canvasRef.current) {
             canvasContextRef.current = canvasRef.current.getContext("2d");
             const context = canvasContextRef.current;
-            context!.fillRect(0, 0, props.width, props.height);
+            context!.fillRect(0, 0, dimensions.width, dimensions.height);
             context!.strokeStyle = "rgb(255, 255, 255)";
 
-            setInterval(() => {
-                let x = props.width / 2;
-                let y = props.height / 2;
+            const id = setInterval(() => {
+                let x = dimensions.width / 2;
+                let y = dimensions.height / 2;
                 let theta;
                 for (let i = 0; i < segmentCount; i++) {
                     context!.moveTo(x, y);
@@ -29,10 +33,23 @@ function Lines(props: { height: number; width: number }): JSX.Element {
                 }
                 context!.stroke();
             }, delayTime);
+            return () => clearInterval(id);
         }
+    }, [dimensions]);
+
+    React.useLayoutEffect(() => {
+        function updateDimensions() {
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        window.addEventListener("resize", updateDimensions);
+        updateDimensions();
+        return () => window.removeEventListener("resize", updateDimensions);
     }, []);
 
-    return <canvas ref={canvasRef} {...props}></canvas>;
+    return <canvas ref={canvasRef} {...dimensions}></canvas>;
 }
 
 export default Lines;

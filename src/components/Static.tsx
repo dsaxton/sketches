@@ -1,11 +1,16 @@
 import * as React from "react";
 
-function Static(props: { height: number; width: number }): JSX.Element {
+function Static(): JSX.Element {
+    const [dimensions, setDimensions] = React.useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
     const cellCount = 100;
     const delayTime = 50;
-    const cellDimension = Math.min(props.width, props.height) / cellCount / 2;
-    const xOffset = props.width / 2 - (cellCount * cellDimension) / 2;
-    const yOffset = props.height / 2 - (cellCount * cellDimension) / 2;
+    const cellDimension =
+        Math.min(dimensions.width, dimensions.height) / cellCount / 2;
+    const xOffset = dimensions.width / 2 - (cellCount * cellDimension) / 2;
+    const yOffset = dimensions.height / 2 - (cellCount * cellDimension) / 2;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     const canvasContextRef = React.useRef<CanvasRenderingContext2D | null>(
         null,
@@ -15,9 +20,9 @@ function Static(props: { height: number; width: number }): JSX.Element {
         if (canvasRef.current) {
             canvasContextRef.current = canvasRef.current.getContext("2d");
             const context = canvasContextRef.current;
-            context!.fillRect(0, 0, props.width, props.height);
+            context!.fillRect(0, 0, dimensions.width, dimensions.height);
 
-            setInterval(() => {
+            const id = setInterval(() => {
                 let cellColor;
                 for (let i = 0; i < cellCount; i++) {
                     for (let j = 0; j < cellCount; j++) {
@@ -35,10 +40,23 @@ function Static(props: { height: number; width: number }): JSX.Element {
                     }
                 }
             }, delayTime);
+            return () => clearInterval(id);
         }
+    }, [dimensions]);
+
+    React.useLayoutEffect(() => {
+        function updateDimensions() {
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        window.addEventListener("resize", updateDimensions);
+        updateDimensions();
+        return () => window.removeEventListener("resize", updateDimensions);
     }, []);
 
-    return <canvas ref={canvasRef} {...props} />;
+    return <canvas ref={canvasRef} {...dimensions} />;
 }
 
 export default Static;
