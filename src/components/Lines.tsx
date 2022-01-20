@@ -9,14 +9,10 @@ function Lines(): JSX.Element {
     });
     const radius = Math.min(dimensions.width, dimensions.height) / 100;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
-    const canvasContextRef = React.useRef<CanvasRenderingContext2D | null>(
-        null,
-    );
 
     React.useEffect(() => {
         if (canvasRef.current) {
-            canvasContextRef.current = canvasRef.current.getContext("2d");
-            const context = canvasContextRef.current;
+            const context = canvasRef.current.getContext("2d");
             context!.fillRect(0, 0, dimensions.width, dimensions.height);
             context!.strokeStyle = "rgb(255, 255, 255)";
 

@@ -12,14 +12,10 @@ function Static(): JSX.Element {
     const xOffset = dimensions.width / 2 - (cellCount * cellDimension) / 2;
     const yOffset = dimensions.height / 2 - (cellCount * cellDimension) / 2;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
-    const canvasContextRef = React.useRef<CanvasRenderingContext2D | null>(
-        null,
-    );
 
     React.useEffect(() => {
         if (canvasRef.current) {
-            canvasContextRef.current = canvasRef.current.getContext("2d");
-            const context = canvasContextRef.current;
+            const context = canvasRef.current.getContext("2d");
             context!.fillRect(0, 0, dimensions.width, dimensions.height);
 
             const id = setInterval(() => {
