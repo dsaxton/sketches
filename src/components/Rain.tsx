@@ -7,7 +7,7 @@ type Coordinate = {
 
 function Lines(props: { width: number; height: number }): JSX.Element {
     const delayTime = 100;
-    const squareCount = 25;
+    const squareCount = 50;
     const squareSize = Math.min(props.width, props.height) / 100;
     const ceiling = (1 * props.height) / 10;
     const floor = (9 * props.height) / 10;
