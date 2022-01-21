@@ -2,6 +2,7 @@ import * as React from "react";
 import Rain from "./Rain";
 import Lines from "./Lines";
 import Static from "./Static";
+import Circles from "./Circles";
 
 function App(): JSX.Element {
     const [dimensions, setDimensions] = React.useState({
@@ -12,6 +13,7 @@ function App(): JSX.Element {
         <Rain {...dimensions} />,
         <Lines {...dimensions} />,
         <Static {...dimensions} />,
+        <Circles {...dimensions} />,
     ];
 
     React.useLayoutEffect(() => {
