@@ -8,7 +8,7 @@ type Coordinate = {
 function Lines(props: { width: number; height: number }): JSX.Element {
     const delayTime = 100;
     const squareCount = 50;
-    const marginFactor = 20;
+    const marginFactor = 15;
     const squareSize = Math.min(props.width, props.height) / 100;
     const ceiling = (1 * props.height) / marginFactor;
     const floor = ((marginFactor - 1) * props.height) / marginFactor;
@@ -62,7 +62,7 @@ function Lines(props: { width: number; height: number }): JSX.Element {
                     let newY = y + 2 * squareSize;
                     let newX = x;
                     if (newY > floor) {
-                        newY = ceiling + (newY % floor);
+                        newY = ceiling;
                         newX =
                             leftWall +
                             Math.floor(Math.random() * (rightWall - leftWall));
