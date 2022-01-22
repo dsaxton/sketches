@@ -29,13 +29,9 @@ function Circles(props: { width: number; height: number }): JSX.Element {
             context.fillRect(0, 0, props.width, props.height);
             context.strokeStyle = "rgb(0, 0, 0)";
 
-            let shades: number[] = [...Array(shapeCount)]
-                .map((_, idx) => {
-                    return idx;
-                })
-                .map((idx) => {
-                    return (idx * 255) / shapeCount;
-                });
+            let shades: number[] = [...Array(shapeCount)].map((_, idx) => {
+                return (idx * 255) / shapeCount;
+            });
             let coordinates: Coordinate[] = shades.map(() => {
                 return generateCoordinate();
             });
