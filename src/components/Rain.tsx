@@ -1,9 +1,5 @@
 import * as React from "react";
-
-type Point = {
-    x: number;
-    y: number;
-};
+import { Point } from "../types";
 
 function Lines(props: { width: number; height: number }): JSX.Element {
     const delayTime = 100;
@@ -20,7 +16,7 @@ function Lines(props: { width: number; height: number }): JSX.Element {
     const lightGrey = "rgb(100, 100, 100)";
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
-    function generateCoordinate(): Point {
+    function generatePoint(): Point {
         return {
             x: leftWall + Math.random() * (rightWall - leftWall),
             y: ceiling + Math.random() * (floor - ceiling),
@@ -32,14 +28,14 @@ function Lines(props: { width: number; height: number }): JSX.Element {
             const context = canvasRef.current.getContext("2d")!;
             context.fillRect(0, 0, props.width, props.height);
 
-            let positions = [...Array(squareCount)].map(() => {
-                return generateCoordinate();
+            let points = [...Array(squareCount)].map(() => {
+                return generatePoint();
             });
             const id = setInterval(() => {
                 context.fillStyle = black;
                 context.fillRect(0, 0, props.width, props.height);
 
-                positions.forEach(({ x, y }) => {
+                points.forEach(({ x, y }) => {
                     console.log(`x: ${x}, y: ${y}`);
                     context.fillStyle = white;
                     context.fillRect(x, y, squareSize, squareSize);
@@ -58,7 +54,7 @@ function Lines(props: { width: number; height: number }): JSX.Element {
                         squareSize,
                     );
                 });
-                positions = positions.map(({ x, y }) => {
+                points = points.map(({ x, y }) => {
                     let newY = y + 2 * squareSize;
                     let newX = x;
                     if (newY > floor) {

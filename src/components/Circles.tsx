@@ -1,9 +1,5 @@
 import * as React from "react";
-
-type Point = {
-    x: number;
-    y: number;
-};
+import { Point } from "../types";
 
 function Circles(props: { width: number; height: number }): JSX.Element {
     const delayTime = 10;
@@ -16,7 +12,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
     const rightWall = ((marginFactor - 1) * props.width) / marginFactor;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
-    function generateCoordinate(): Point {
+    function generatePoint(): Point {
         return {
             x: leftWall + radius + Math.random() * (rightWall - leftWall),
             y: ceiling + radius + Math.random() * (floor - ceiling),
@@ -32,15 +28,15 @@ function Circles(props: { width: number; height: number }): JSX.Element {
             let shades: number[] = [...Array(shapeCount)].map((_, idx) => {
                 return (idx * 255) / shapeCount;
             });
-            let coordinates: Point[] = shades.map(() => {
-                return generateCoordinate();
+            let points: Point[] = shades.map(() => {
+                return generatePoint();
             });
             const id = setInterval(() => {
                 context.fillStyle = "rgb(0, 0, 0)";
                 context.fillRect(0, 0, props.width, props.height);
-                coordinates.forEach((coord, idx) => {
+                points.forEach((point, idx) => {
                     context.beginPath();
-                    context.arc(coord.x, coord.y, radius, 0, 2 * Math.PI);
+                    context.arc(point.x, point.y, radius, 0, 2 * Math.PI);
                     context.stroke();
                     context.fillStyle = `rgb(${shades[idx]}, ${shades[idx]}, ${shades[idx]})`;
                     context.fill();
@@ -48,11 +44,11 @@ function Circles(props: { width: number; height: number }): JSX.Element {
                 shades = shades.map((s) => {
                     return s > 0 ? s - 1 : 255;
                 });
-                coordinates = shades.map((s, idx) => {
+                points = shades.map((s, idx) => {
                     if (s === 255) {
-                        return generateCoordinate();
+                        return generatePoint();
                     }
-                    return coordinates[idx];
+                    return points[idx];
                 });
             }, delayTime);
             return () => clearInterval(id);
