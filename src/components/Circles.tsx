@@ -7,9 +7,9 @@ type Coordinate = {
 
 function Circles(props: { width: number; height: number }): JSX.Element {
     const delayTime = 10;
-    const marginFactor = 10;
-    const shapeCount = 10;
-    const radius = Math.min(props.width, props.height) / 75;
+    const marginFactor = 20;
+    const shapeCount = 75;
+    const radius = Math.min(props.width, props.height) / 150;
     const ceiling = (1 * props.height) / marginFactor;
     const floor = ((marginFactor - 1) * props.height) / marginFactor;
     const leftWall = (1 * props.width) / marginFactor;
