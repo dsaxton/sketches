@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type Coordinate = {
+type Point = {
     x: number;
     y: number;
 };
@@ -20,7 +20,7 @@ function Lines(props: { width: number; height: number }): JSX.Element {
     const lightGrey = "rgb(100, 100, 100)";
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
-    function generateCoordinate(): Coordinate {
+    function generateCoordinate(): Point {
         return {
             x: leftWall + Math.random() * (rightWall - leftWall),
             y: ceiling + Math.random() * (floor - ceiling),

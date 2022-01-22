@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type Coordinate = {
+type Point = {
     x: number;
     y: number;
 };
@@ -16,7 +16,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
     const rightWall = ((marginFactor - 1) * props.width) / marginFactor;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
-    function generateCoordinate(): Coordinate {
+    function generateCoordinate(): Point {
         return {
             x: leftWall + radius + Math.random() * (rightWall - leftWall),
             y: ceiling + radius + Math.random() * (floor - ceiling),
@@ -32,7 +32,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
             let shades: number[] = [...Array(shapeCount)].map((_, idx) => {
                 return (idx * 255) / shapeCount;
             });
-            let coordinates: Coordinate[] = shades.map(() => {
+            let coordinates: Point[] = shades.map(() => {
                 return generateCoordinate();
             });
             const id = setInterval(() => {
