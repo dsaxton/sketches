@@ -36,7 +36,6 @@ function Lines(props: { width: number; height: number }): JSX.Element {
                 context.fillRect(0, 0, props.width, props.height);
 
                 points.forEach(({ x, y }) => {
-                    console.log(`x: ${x}, y: ${y}`);
                     context.fillStyle = white;
                     context.fillRect(x, y, squareSize, squareSize);
                     context.fillStyle = lightGrey;
