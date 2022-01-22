@@ -5,10 +5,11 @@ type Coordinate = {
     y: number;
 };
 
-function Circle(props: { width: number; height: number }): JSX.Element {
+function Circles(props: { width: number; height: number }): JSX.Element {
     const delayTime = 10;
     const marginFactor = 10;
-    const radius = Math.min(props.width, props.height) / 15;
+    const shapeCount = 10;
+    const radius = Math.min(props.width, props.height) / 75;
     const ceiling = (1 * props.height) / marginFactor;
     const floor = ((marginFactor - 1) * props.height) / marginFactor;
     const leftWall = (1 * props.width) / marginFactor;
@@ -28,22 +29,35 @@ function Circle(props: { width: number; height: number }): JSX.Element {
             context.fillRect(0, 0, props.width, props.height);
             context.strokeStyle = "rgb(0, 0, 0)";
 
-            let lightness = 255;
-            let { x, y } = generateCoordinate();
+            let shades: number[] = [...Array(shapeCount)]
+                .map((_, idx) => {
+                    return idx;
+                })
+                .map((idx) => {
+                    return (idx * 255) / shapeCount;
+                });
+            let coordinates: Coordinate[] = shades.map(() => {
+                return generateCoordinate();
+            });
             const id = setInterval(() => {
                 context.fillStyle = "rgb(0, 0, 0)";
                 context.fillRect(0, 0, props.width, props.height);
-                context.beginPath();
-                context.arc(x, y, radius, 0, 2 * Math.PI);
-                context.stroke();
-                context.fillStyle = `rgb(${lightness}, ${lightness}, ${lightness})`;
-                context.fill();
-                if (lightness < 0) {
-                    lightness = 255;
-                    ({ x, y } = generateCoordinate());
-                } else {
-                    lightness--;
-                }
+                coordinates.forEach((coord, idx) => {
+                    context.beginPath();
+                    context.arc(coord.x, coord.y, radius, 0, 2 * Math.PI);
+                    context.stroke();
+                    context.fillStyle = `rgb(${shades[idx]}, ${shades[idx]}, ${shades[idx]})`;
+                    context.fill();
+                });
+                shades = shades.map((s) => {
+                    return s > 0 ? s - 1 : 255;
+                });
+                coordinates = shades.map((s, idx) => {
+                    if (s === 255) {
+                        return generateCoordinate();
+                    }
+                    return coordinates[idx];
+                });
             }, delayTime);
             return () => clearInterval(id);
         }
@@ -52,4 +66,4 @@ function Circle(props: { width: number; height: number }): JSX.Element {
     return <canvas ref={canvasRef} {...props}></canvas>;
 }
 
-export default Circle;
+export default Circles;
