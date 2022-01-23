@@ -3,6 +3,7 @@ import FallingSquares from "./FallingSquares";
 import Lines from "./Lines";
 import Static from "./Static";
 import Circles from "./Circles";
+import Triangles from "./Triangles";
 
 function App(): JSX.Element {
     const holdTime = 5000;
@@ -15,6 +16,7 @@ function App(): JSX.Element {
         <FallingSquares {...dimensions} />,
         <Static {...dimensions} />,
         <Circles {...dimensions} />,
+        <Triangles {...dimensions} />,
     ];
     const [index, setIndex] = React.useState(0);
 
