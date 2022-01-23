@@ -1,6 +1,5 @@
 import * as React from "react";
 import FallingSquares from "./FallingSquares";
-import Lines from "./Lines";
 import Static from "./Static";
 import Circles from "./Circles";
 import Triangles from "./Triangles";
@@ -13,10 +12,9 @@ function App(): JSX.Element {
         height: window.innerHeight,
     });
     const components = [
-        <Lines {...dimensions} />,
+        <Tree {...dimensions} />,
         <FallingSquares {...dimensions} />,
         <Static {...dimensions} />,
-        <Tree {...dimensions} />,
         <Circles {...dimensions} />,
         <Triangles {...dimensions} />,
     ];

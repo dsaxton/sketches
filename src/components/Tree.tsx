@@ -4,7 +4,7 @@ import { Point } from "../types";
 type DirectedPoint = Point & { direction: number };
 
 function Tree(props: { width: number; height: number }): JSX.Element {
-    const delayTime = 10;
+    const delayTime = 5;
     const radius = Math.min(props.width, props.height) / 200;
     const epochSize = 20;
     const directionalBias = 0.5;
@@ -24,12 +24,16 @@ function Tree(props: { width: number; height: number }): JSX.Element {
 
             const id = setInterval(() => {
                 for (const point of currentGeneration) {
-                    if (
-                        point.x < 0 ||
-                        point.x > props.width ||
-                        point.y < 0 ||
-                        point.y > props.height
-                    ) {
+                    if (point.y < 0) {
+                        currentGeneration = [
+                            {
+                                x: Math.random() * props.width,
+                                y: props.height,
+                                direction: Math.PI / 2,
+                            },
+                        ];
+                        generationCount = 1;
+                        doublingGeneration = generationCount % epochSize === 0;
                         return;
                     }
                 }
@@ -44,7 +48,7 @@ function Tree(props: { width: number; height: number }): JSX.Element {
                     const y1 = point.y - radius * Math.sin(theta1);
                     const theta2 =
                         directionalBias *
-                            (Math.PI / 2 - (Math.PI - point.direction)) +
+                            (Math.PI / 2 - (Math.PI / 2 - point.direction)) +
                         (1 - directionalBias) * Math.random() * Math.PI;
                     const x2 = point.x + radius * Math.cos(theta2);
                     const y2 = point.y - radius * Math.sin(theta2);
