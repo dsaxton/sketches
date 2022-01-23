@@ -1,6 +1,6 @@
-type Point = {
+interface Point {
     x: number;
     y: number;
-};
+}
 
 export { Point };
