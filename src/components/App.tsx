@@ -4,6 +4,7 @@ import Lines from "./Lines";
 import Static from "./Static";
 import Circles from "./Circles";
 import Triangles from "./Triangles";
+import Tree from "./Tree";
 
 function App(): JSX.Element {
     const holdTime = 5000;
@@ -15,6 +16,7 @@ function App(): JSX.Element {
         <Lines {...dimensions} />,
         <FallingSquares {...dimensions} />,
         <Static {...dimensions} />,
+        <Tree {...dimensions} />,
         <Circles {...dimensions} />,
         <Triangles {...dimensions} />,
     ];
