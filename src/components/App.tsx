@@ -1,5 +1,5 @@
 import * as React from "react";
-import Rain from "./Rain";
+import FallingSquares from "./FallingSquares";
 import Lines from "./Lines";
 import Static from "./Static";
 import Circles from "./Circles";
@@ -11,7 +11,7 @@ function App(): JSX.Element {
         height: window.innerHeight,
     });
     const components = [
-        <Rain {...dimensions} />,
+        <FallingSquares {...dimensions} />,
         <Lines {...dimensions} />,
         <Static {...dimensions} />,
         <Circles {...dimensions} />,

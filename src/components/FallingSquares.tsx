@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Point } from "../types";
 
-function Lines(props: { width: number; height: number }): JSX.Element {
+function FallingSquares(props: { width: number; height: number }): JSX.Element {
     const delayTime = 100;
     const squareCount = 50;
     const marginFactor = 15;
@@ -74,4 +74,4 @@ function Lines(props: { width: number; height: number }): JSX.Element {
     return <canvas ref={canvasRef} {...props}></canvas>;
 }
 
-export default Lines;
+export default FallingSquares;
