@@ -4,8 +4,8 @@ import { Point } from "../types";
 type DirectedPoint = Point & { direction: number };
 
 function Tree(props: { width: number; height: number }): JSX.Element {
-    const delayTime = 5;
-    const radius = Math.min(props.width, props.height) / 200;
+    const delayTime = 20;
+    const radius = Math.min(props.width, props.height) / 100;
     const epochSize = 20;
     const directionalBias = 0.5;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
