@@ -1,14 +1,18 @@
 import * as React from "react";
 import { Point } from "../types";
 
+type DirectedPoint = Point & { direction: number };
+
 function Tree(props: { width: number; height: number }): JSX.Element {
     const delayTime = 10;
     const radius = Math.min(props.width, props.height) / 200;
-    const epochSize = 50;
-    // TODO: add bias
+    const epochSize = 20;
+    const directionalBias = 0.5;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
-    let currentGeneration: Point[] = [{ x: props.width / 2, y: props.height }];
-    let nextGeneration: Point[];
+    let currentGeneration: DirectedPoint[] = [
+        { x: props.width / 2, y: props.height, direction: Math.PI / 2 },
+    ];
+    let nextGeneration: DirectedPoint[];
     let generationCount = 1;
     let doublingGeneration = generationCount % epochSize === 0;
 
@@ -33,19 +37,24 @@ function Tree(props: { width: number; height: number }): JSX.Element {
                 generationCount++;
                 doublingGeneration = generationCount % epochSize === 0;
                 nextGeneration = currentGeneration.flatMap((point) => {
-                    const theta1 = Math.random() * Math.PI;
+                    const theta1 =
+                        directionalBias * point.direction +
+                        (1 - directionalBias) * Math.random() * Math.PI;
                     const x1 = point.x + radius * Math.cos(theta1);
                     const y1 = point.y - radius * Math.sin(theta1);
-                    const theta2 = Math.random() * Math.PI;
+                    const theta2 =
+                        directionalBias *
+                            (Math.PI / 2 - (Math.PI - point.direction)) +
+                        (1 - directionalBias) * Math.random() * Math.PI;
                     const x2 = point.x + radius * Math.cos(theta2);
                     const y2 = point.y - radius * Math.sin(theta2);
                     if (doublingGeneration) {
                         return [
-                            { x: x1, y: y1 },
-                            { x: x2, y: y2 },
+                            { x: x1, y: y1, direction: theta1 },
+                            { x: x2, y: y2, direction: theta2 },
                         ];
                     }
-                    return [{ x: x1, y: y1 }];
+                    return [{ x: x1, y: y1, direction: point.direction }];
                 });
                 currentGeneration.forEach((point, idx) => {
                     context.beginPath();
