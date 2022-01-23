@@ -11,8 +11,8 @@ function App(): JSX.Element {
         height: window.innerHeight,
     });
     const components = [
-        <FallingSquares {...dimensions} />,
         <Lines {...dimensions} />,
+        <FallingSquares {...dimensions} />,
         <Static {...dimensions} />,
         <Circles {...dimensions} />,
     ];
