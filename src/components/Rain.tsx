@@ -6,6 +6,8 @@ function Lines(props: { width: number; height: number }): JSX.Element {
     const squareCount = 50;
     const marginFactor = 15;
     const squareSize = Math.min(props.width, props.height) / 100;
+    const secondFactor = 0.8;
+    const thirdFactor = 0.7;
     const ceiling = (1 * props.height) / marginFactor;
     const floor = ((marginFactor - 1) * props.height) / marginFactor;
     const leftWall = (1 * props.width) / marginFactor;
@@ -40,17 +42,17 @@ function Lines(props: { width: number; height: number }): JSX.Element {
                     context.fillRect(x, y, squareSize, squareSize);
                     context.fillStyle = lightGrey;
                     context.fillRect(
-                        x,
+                        x + ((1 - secondFactor) * squareSize) / 2,
                         y - 2 * squareSize,
-                        squareSize,
-                        squareSize,
+                        secondFactor * squareSize,
+                        secondFactor * squareSize,
                     );
                     context.fillStyle = darkGrey;
                     context.fillRect(
-                        x,
+                        x + ((1 - thirdFactor) * squareSize) / 2,
                         y - 4 * squareSize,
-                        squareSize,
-                        squareSize,
+                        thirdFactor * squareSize,
+                        thirdFactor * squareSize,
                     );
                 });
                 points = points.map(({ x, y }) => {
