@@ -5,7 +5,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
     const delayTime = 10;
     const marginFactor = 20;
     const shapeCount = 75;
-    const radius = Math.min(props.width, props.height) / 150;
+    const maxRadius = Math.min(props.width, props.height) / 100;
     const ceiling = (1 * props.height) / marginFactor;
     const floor = ((marginFactor - 1) * props.height) / marginFactor;
     const leftWall = (1 * props.width) / marginFactor;
@@ -14,8 +14,8 @@ function Circles(props: { width: number; height: number }): JSX.Element {
 
     function generatePoint(): Point {
         return {
-            x: leftWall + radius + Math.random() * (rightWall - leftWall),
-            y: ceiling + radius + Math.random() * (floor - ceiling),
+            x: leftWall + maxRadius + Math.random() * (rightWall - leftWall),
+            y: ceiling + maxRadius + Math.random() * (floor - ceiling),
         };
     }
 
@@ -31,12 +31,15 @@ function Circles(props: { width: number; height: number }): JSX.Element {
             let points: Point[] = shades.map(() => {
                 return generatePoint();
             });
+            let radii: number[] = shades.map(() => {
+                return Math.random() * maxRadius;
+            });
             const id = setInterval(() => {
                 context.fillStyle = "rgb(0, 0, 0)";
                 context.fillRect(0, 0, props.width, props.height);
                 points.forEach((point, idx) => {
                     context.beginPath();
-                    context.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+                    context.arc(point.x, point.y, radii[idx], 0, 2 * Math.PI);
                     context.stroke();
                     context.fillStyle = `rgb(${shades[idx]}, ${shades[idx]}, ${shades[idx]})`;
                     context.fill();
@@ -49,6 +52,12 @@ function Circles(props: { width: number; height: number }): JSX.Element {
                         return generatePoint();
                     }
                     return points[idx];
+                });
+                radii = shades.map((s, idx) => {
+                    if (s === 255) {
+                        return Math.random() * maxRadius;
+                    }
+                    return radii[idx];
                 });
             }, delayTime);
             return () => clearInterval(id);
