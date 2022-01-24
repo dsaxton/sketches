@@ -9,8 +9,8 @@ function Sphere(props: { width: number; height: number }): JSX.Element {
     const white = "rgb(255, 255, 255)";
     const tickFactor = 100;
     const outerRadius = Math.min(props.width, props.height) / 5;
-    const distanceBetweenCenters = 0.7 * outerRadius;
     const innerRadius = Math.min(props.width, props.height) / 500;
+    const distanceBetweenCenters = 0.7 * outerRadius;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
     React.useEffect(() => {
