@@ -5,6 +5,7 @@ type DirectedPoint = Point & { direction: number };
 
 function Trees(props: { width: number; height: number }): JSX.Element {
     const delayTime = 20;
+    const white = "rgb(255, 255, 255)";
     const radius = Math.min(props.width, props.height) / 100;
     const epochSize = 20;
     const directionalBias = 0.5;
@@ -20,7 +21,7 @@ function Trees(props: { width: number; height: number }): JSX.Element {
         if (canvasRef.current) {
             const context = canvasRef.current.getContext("2d")!;
             context.fillRect(0, 0, props.width, props.height);
-            context.strokeStyle = "rgb(255, 255, 255)";
+            context.strokeStyle = white;
 
             const id = setInterval(() => {
                 if (
