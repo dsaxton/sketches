@@ -10,6 +10,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
     const floor = ((marginFactor - 1) * props.height) / marginFactor;
     const leftWall = (1 * props.width) / marginFactor;
     const rightWall = ((marginFactor - 1) * props.width) / marginFactor;
+    const black = "rgb(0, 0, 0)";
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
     function generatePoint(): Point {
@@ -23,7 +24,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
         if (canvasRef.current) {
             const context = canvasRef.current.getContext("2d")!;
             context.fillRect(0, 0, props.width, props.height);
-            context.strokeStyle = "rgb(0, 0, 0)";
+            context.strokeStyle = black;
 
             let shades: number[] = [...Array(shapeCount)].map((_, idx) => {
                 return (idx * 255) / shapeCount;
@@ -35,7 +36,7 @@ function Circles(props: { width: number; height: number }): JSX.Element {
                 return Math.random() * maxRadius;
             });
             const id = setInterval(() => {
-                context.fillStyle = "rgb(0, 0, 0)";
+                context.fillStyle = black;
                 context.fillRect(0, 0, props.width, props.height);
                 points.forEach((point, idx) => {
                     context.beginPath();
