@@ -7,7 +7,7 @@ function Trees(props: { width: number; height: number }): JSX.Element {
     const delayTime = 20;
     const white = "rgb(255, 255, 255)";
     const radius = Math.min(props.width, props.height) / 100;
-    const epochSize = 20;
+    const epochSize = Math.floor(props.height / 50);
     const directionalBias = 0.5;
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     let currentGeneration: DirectedPoint[] = [
