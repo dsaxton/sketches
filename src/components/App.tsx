@@ -3,7 +3,7 @@ import FallingSquares from "./FallingSquares";
 import Static from "./Static";
 import Circles from "./Circles";
 import Triangles from "./Triangles";
-import Tree from "./Tree";
+import Trees from "./Trees";
 
 function App(): JSX.Element {
     const holdTime = 7000;
@@ -12,7 +12,7 @@ function App(): JSX.Element {
         height: window.innerHeight,
     });
     const components = [
-        <Tree {...dimensions} />,
+        <Trees {...dimensions} />,
         <FallingSquares {...dimensions} />,
         <Static {...dimensions} />,
         <Circles {...dimensions} />,

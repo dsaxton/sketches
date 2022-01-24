@@ -3,7 +3,7 @@ import { Point } from "../types";
 
 type DirectedPoint = Point & { direction: number };
 
-function Tree(props: { width: number; height: number }): JSX.Element {
+function Trees(props: { width: number; height: number }): JSX.Element {
     const delayTime = 20;
     const radius = Math.min(props.width, props.height) / 100;
     const epochSize = 20;
@@ -102,4 +102,4 @@ function all<T>(arr: T[], fn: (x: T) => boolean): boolean {
     return true;
 }
 
-export default Tree;
+export default Trees;
