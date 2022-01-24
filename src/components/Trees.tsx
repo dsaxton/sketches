@@ -24,11 +24,7 @@ function Trees(props: { width: number; height: number }): JSX.Element {
             context.strokeStyle = white;
 
             const id = setInterval(() => {
-                if (
-                    all(currentGeneration, (p) => {
-                        return p.y < 0;
-                    })
-                ) {
+                if (all(currentGeneration, (p) => p.y < 0)) {
                     currentGeneration = [
                         {
                             x: Math.random() * props.width,
