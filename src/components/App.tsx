@@ -4,6 +4,7 @@ import Static from "./Static";
 import Circles from "./Circles";
 import Triangles from "./Triangles";
 import Trees from "./Trees";
+import Sphere from "./Sphere";
 
 function App(): JSX.Element {
     const holdTime = 7000;
@@ -15,8 +16,9 @@ function App(): JSX.Element {
         <Trees {...dimensions} />,
         <FallingSquares {...dimensions} />,
         <Static {...dimensions} />,
-        <Circles {...dimensions} />,
+        <Sphere {...dimensions} />,
         <Triangles {...dimensions} />,
+        <Circles {...dimensions} />,
     ];
     const [index, setIndex] = React.useState(0);
 
