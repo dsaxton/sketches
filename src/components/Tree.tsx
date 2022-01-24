@@ -14,7 +14,7 @@ function Tree(props: { width: number; height: number }): JSX.Element {
     ];
     let nextGeneration: DirectedPoint[];
     let generationCount = 1;
-    let doublingGeneration = generationCount % epochSize === 0;
+    let doublingGeneration: boolean;
 
     React.useEffect(() => {
         if (canvasRef.current) {
@@ -23,19 +23,20 @@ function Tree(props: { width: number; height: number }): JSX.Element {
             context.strokeStyle = "rgb(255, 255, 255)";
 
             const id = setInterval(() => {
-                for (const point of currentGeneration) {
-                    if (point.y < 0) {
-                        currentGeneration = [
-                            {
-                                x: Math.random() * props.width,
-                                y: props.height,
-                                direction: Math.PI / 2,
-                            },
-                        ];
-                        generationCount = 1;
-                        doublingGeneration = generationCount % epochSize === 0;
-                        return;
-                    }
+                if (
+                    all(currentGeneration, (p) => {
+                        return p.y < 0;
+                    })
+                ) {
+                    currentGeneration = [
+                        {
+                            x: Math.random() * props.width,
+                            y: props.height,
+                            direction: Math.PI / 2,
+                        },
+                    ];
+                    generationCount = 1;
+                    return;
                 }
 
                 generationCount++;
@@ -90,6 +91,15 @@ function Tree(props: { width: number; height: number }): JSX.Element {
     }, [props]);
 
     return <canvas ref={canvasRef} {...props}></canvas>;
+}
+
+function all<T>(arr: T[], fn: (x: T) => boolean): boolean {
+    for (const element of arr) {
+        if (!fn(element)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 export default Tree;

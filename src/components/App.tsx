@@ -6,7 +6,7 @@ import Triangles from "./Triangles";
 import Tree from "./Tree";
 
 function App(): JSX.Element {
-    const holdTime = 5000;
+    const holdTime = 10000;
     const [dimensions, setDimensions] = React.useState({
         width: window.innerWidth,
         height: window.innerHeight,
