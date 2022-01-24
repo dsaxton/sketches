@@ -5,6 +5,8 @@ type PointWithRadius = Point & { radius: number };
 
 function Sphere(props: { width: number; height: number }): JSX.Element {
     const delayTime = 50;
+    const black = "rgb(0, 0, 0)";
+    const white = "rgb(255, 255, 255)";
     const tickFactor = 100;
     const outerRadius = Math.min(props.width, props.height) / 5;
     const distanceBetweenCenters = 0.7 * outerRadius;
@@ -42,8 +44,8 @@ function Sphere(props: { width: number; height: number }): JSX.Element {
                     outerCircle.y,
                     outerCircle.radius,
                 );
-                gradient.addColorStop(0, "rgb(255, 255, 255)");
-                gradient.addColorStop(1, "rgb(0, 0, 0)");
+                gradient.addColorStop(0, white);
+                gradient.addColorStop(1, black);
                 context.fillStyle = gradient;
                 context.fillRect(0, 0, props.width, props.height);
 
