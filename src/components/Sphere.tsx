@@ -35,7 +35,6 @@ function Sphere(props: { width: number; height: number }): JSX.Element {
                         distanceBetweenCenters * Math.sin(theta),
                     radius: innerRadius,
                 };
-
                 const gradient = context.createRadialGradient(
                     innerCircle.x,
                     innerCircle.y,
