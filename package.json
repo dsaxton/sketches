@@ -1,5 +1,5 @@
 {
-    "name": "sketches-app",
+    "name": "sketches",
     "version": "1.0.0",
     "scripts": {
         "dev": "webpack serve --port 3000",
